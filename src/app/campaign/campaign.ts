@@ -1,0 +1,10 @@
+export class Campaign {
+
+  id: number;
+  link: string;
+  content: string;
+  destinationCountries: string[];
+  languages: string[];
+  ageGroups: string[];
+
+}
