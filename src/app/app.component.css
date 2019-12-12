@@ -1,3 +1,27 @@
 .container {
   padding: 20px;
 }
+
+.example-container {
+  padding: 20px;
+  margin-bottom: 10px;
+}
+
+.button-row {
+  margin: 10px 0;
+  flex: max-content;
+}
+
+.mat-flat-button {
+  flex: max-content;
+  white-space: pre-wrap;
+}
+
+.bg-color{
+  background: none;
+  color: black;
+  flex: revert;
+}
+
+
+

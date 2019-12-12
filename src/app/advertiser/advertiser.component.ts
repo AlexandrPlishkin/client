@@ -1,8 +1,9 @@
 import {Component, OnInit} from '@angular/core';
 import {Advertiser} from './advertiser';
 import {AdvertiserService} from './advertiser.service';
-import {AuthService} from '../auth.service';
-import {Router} from '@angular/router';
+import {ActivatedRoute, Router} from '@angular/router';
+import {log} from "util";
+import {User} from "../user/user";
 
 @Component({
   selector: 'app-advertiser',
@@ -12,10 +13,10 @@ import {Router} from '@angular/router';
 export class AdvertiserComponent implements OnInit {
 
   data: Advertiser[] = [];
-  displayedColumns: string[] = ['advertiserName', 'AdvertiserEmail'];
+  displayedColumns: string[] = ['advertiserId', 'advertiserName', 'advertiserEmail', 'advertiserOwner', 'Functions'];
   isLoadingResults = true;
 
-  constructor(private advertiserService: AdvertiserService, private authService: AuthService, private router: Router) {
+  constructor(private advertiserService: AdvertiserService, private router: Router) {
   }
 
   ngOnInit() {
@@ -34,9 +35,17 @@ export class AdvertiserComponent implements OnInit {
       });
   }
 
-  logout() {
-    localStorage.removeItem('token');
-    this.router.navigate(['login']);
+  edit(user: User) {
+    this.router.navigate(['advertisers-edit'], {state: user});
+  }
+
+  deleteAdvertiser(advertiserId: number) {
+    this.advertiserService.deleteAdvertiser(advertiserId).subscribe(resp => console.log(resp));
+    window.location.reload();
+  }
+
+  create() {
+    this.router.navigate(['advertisers-edit']);
   }
 }
 

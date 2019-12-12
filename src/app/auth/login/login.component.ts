@@ -38,11 +38,12 @@ export class LoginComponent implements OnInit {
   onFormSubmit(form: NgForm) {
     this.authService.login(form)
       .subscribe((response: Response) => {
-        console.log(response.headers.get('Authorization'));
+        // console.log(response.headers.get('Authorization'));
+        console.log(response.body['role']);
+        localStorage.setItem('role', response.body['role']);
         if (response.headers.get('Authorization')) {
-          // localStorage.setItem('token', response.token);
-          // fixme check localstorage every time
-          this.router.navigate(['advertiser']);
+          localStorage.setItem('token', response.headers.get('Authorization'));
+          this.router.navigate(['advertisers']);
         }
       }, (err) => {
         console.log(err);

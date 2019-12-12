@@ -19,24 +19,23 @@ export class AdvertiserService {
     return this.http.post<Advertiser[]>(apiUrl, advertiser)
       .pipe(
         tap(_ => this.log('New Advertiser')),
-        catchError(this.handleError('createAdvertiser', []))
+        catchError(this.handleError('create Advertiser', []))
       );
   }
 
-  // TODO check []
   getAdvertiser(id: number): Observable<Advertiser[]> {
     return this.http.get<Advertiser[]>(apiUrl + '/' + id)
       .pipe(
         tap(_ => this.log('Advertiser')),
-        catchError(this.handleError('getAdvertiser', []))
+        catchError(this.handleError('get Advertiser', []))
       );
   }
 
   getAdvertisers(): Observable<Advertiser[]> {
     return this.http.get<Advertiser[]>(apiUrl)
       .pipe(
-        tap(_ => this.log('Advertiser')),
-        catchError(this.handleError('getAdvertisers', []))
+        tap(_ => this.log('getAdvertisers')),
+        catchError(this.handleError('get Advertisers', []))
       );
   }
 

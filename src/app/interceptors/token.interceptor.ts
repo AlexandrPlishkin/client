@@ -23,7 +23,7 @@ export class TokenInterceptor implements HttpInterceptor {
     if (token) {
       request = request.clone({
         setHeaders: {
-          Authorization: 'Bearer ' + token // fixme
+          Authorization: token // fixme 'Bearer ' +
         }
       });
     }
@@ -47,12 +47,12 @@ export class TokenInterceptor implements HttpInterceptor {
       }),
       catchError((error: HttpErrorResponse) => {
         console.log(error);
-        if (error.status === 401) {
+        if (error.status === 401 || error.status === 403) {
           this.router.navigate(['login']);
         }
-        if (error.status === 400) {
-          alert(error.error);
-        }
+        // if (error.status === 400) {
+        alert(error.error.message || error.name || error.error.error);
+        // }
         return throwError(error);
       }));
   }

@@ -5,6 +5,4 @@ export class Campaign {
   content: string;
   destinationCountries: string[];
   languages: string[];
-  ageGroups: string[];
-
 }

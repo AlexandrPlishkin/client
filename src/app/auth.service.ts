@@ -14,27 +14,17 @@ export class AuthService {
   redirectUrl: string;
 
   constructor(private http: HttpClient) {
+    if (localStorage.getItem('token')) {
+      this.isLoggedIn = true;
+    }
   }
-
-  // getTokenFromHeader(): Observable<Response> {
-  // return this.http.request()
-  // }
 
   login(data: any): Observable<any> {
     return this.http.post(apiUrl + '/login', data, {observe: 'response'})
       .pipe(
         tap(_ => this.isLoggedIn = true),
+        tap(_ => localStorage.setItem('username', data.username)),
         catchError(this.handleError('login', []))
-      );
-  }
-
-
-  // fixme
-  logout(): Observable<any> {
-    return this.http.get<any>(apiUrl + 'signout')
-      .pipe(
-        tap(_ => this.isLoggedIn = false),
-        catchError(this.handleError('logout', []))
       );
   }
 
@@ -59,4 +49,13 @@ export class AuthService {
   private log(message: string) {
     console.log(message);
   }
+
+  isAdmin() {
+    return localStorage.getItem('role') === 'ADMIN';
+  }
+
+  getUsernameFromLocalStorage(): string {
+    return localStorage.getItem('username');
+  }
+
 }

@@ -8,7 +8,7 @@ import {AdvertiserComponent} from './advertiser/advertiser.component';
 import {CampaignComponent} from './campaign/campaign.component';
 import {AppRoutingModule} from './app-routing.module';
 
-import {HTTP_INTERCEPTORS, HttpClientModule} from '@angular/common/http';
+import {HTTP_INTERCEPTORS, HttpClientModule} from "@angular/common/http";
 import {TokenInterceptor} from './interceptors/token.interceptor';
 import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
 
@@ -24,6 +24,12 @@ import {
   MatFormFieldModule
 } from '@angular/material';
 import {ReactiveFormsModule} from '@angular/forms';
+import {EditComponent} from "./advertiser/edit/edit.component";
+import {MatSelectModule} from "@angular/material/select";
+import {MatSidenavModule} from "@angular/material/sidenav";
+import {MatToolbarModule} from "@angular/material/toolbar";
+import { UserComponent } from './user/user.component';
+import { ProfileComponent } from './user/profile/profile.component';
 
 @NgModule({
   declarations: [
@@ -31,7 +37,10 @@ import {ReactiveFormsModule} from '@angular/forms';
     LoginComponent,
     RegistrationComponent,
     AdvertiserComponent,
-    CampaignComponent
+    CampaignComponent,
+    EditComponent,
+    UserComponent,
+    ProfileComponent
   ],
   imports: [
     BrowserModule,
@@ -47,7 +56,10 @@ import {ReactiveFormsModule} from '@angular/forms';
     MatIconModule,
     MatButtonModule,
     MatCardModule,
-    MatFormFieldModule
+    MatFormFieldModule,
+    MatSelectModule,
+    MatSidenavModule,
+    MatToolbarModule
   ],
   providers: [{
     provide: HTTP_INTERCEPTORS,

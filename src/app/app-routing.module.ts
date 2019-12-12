@@ -5,13 +5,15 @@ import {CampaignComponent} from './campaign/campaign.component';
 import {LoginComponent} from './auth/login/login.component';
 import {RegistrationComponent} from './auth/registration/registration.component';
 import {AuthGuard} from './auth/auth.guard';
+import {EditComponent} from "./advertiser/edit/edit.component";
+import {UserComponent} from "./user/user.component";
 
 const routes: Routes = [
   {
     path: 'advertisers',
     canActivate: [AuthGuard],
     component: AdvertiserComponent,
-    data: {title: 'Advertiser'}
+    data: {}
   },
   {
     path: 'campaigns',
@@ -28,7 +30,25 @@ const routes: Routes = [
     path: 'registration',
     component: RegistrationComponent,
     data: {title: 'Registration'}
+  },
+  {
+    path: 'advertisers-edit',
+    canActivate: [AuthGuard],
+    component: EditComponent,
+    data: {title: 'EditAdvertiser'}
+  },
+  {
+    path: 'users',
+    canActivate: [AuthGuard],
+    component: UserComponent,
+    data: {title: 'List of Users'}
   }
+  // {
+  //   path: 'users-edit',
+  //   canActivate: [AuthGuard],
+  //   component: EditUserComponent,
+  //   data: {title: 'EditUser'}
+  // },
 ];
 
 @NgModule({
