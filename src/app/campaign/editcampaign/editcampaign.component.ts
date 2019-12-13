@@ -1,9 +1,10 @@
 import {Component, OnInit} from '@angular/core';
-import {Advertiser} from "../advertiser";
-import {AdvertiserService} from "../advertiser.service";
-import {Router} from "@angular/router";
-import {FormBuilder, FormControl, FormGroup, FormGroupDirective, NgForm, Validators} from "@angular/forms";
 import {ErrorStateMatcher} from "@angular/material/core";
+import {FormBuilder, FormControl, FormGroup, FormGroupDirective, NgForm, Validators} from "@angular/forms";
+import {Campaign} from "../campaign";
+import {CampaignService} from "../campaign.service";
+import {Router} from "@angular/router";
+import {Advertiser} from "../../advertiser/advertiser";
 
 /** Error when invalid control is dirty, touched, or submitted. */
 export class MyErrorStateMatcher implements ErrorStateMatcher {
@@ -14,33 +15,35 @@ export class MyErrorStateMatcher implements ErrorStateMatcher {
 }
 
 @Component({
-  selector: 'app-edit',
-  templateUrl: './edit.component.html',
-  styleUrls: ['./edit.component.css']
+  selector: 'app-editcampaign',
+  templateUrl: './editcampaign.component.html',
+  styleUrls: ['./editcampaign.component.css']
 })
-export class EditComponent implements OnInit {
+export class EditcampaignComponent implements OnInit {
 
-  advertiserEditForm: FormGroup;
-  data: Advertiser[];
+  campaignEditForm: FormGroup;
+  data: Campaign[];
   isLoadingResults = true;
-  name = '';
-  email = '';
-  username = '';
+  link = '';
+  content = '';
+  destinationCountries = '';
+  languages = '';
   matcher = new MyErrorStateMatcher();
   id = window.history.state.id;
 
-  constructor(private formBuilder: FormBuilder, private advertiserService: AdvertiserService, private router: Router) {
+  constructor(private formBuilder: FormBuilder, private campaignService: CampaignService, private router: Router) {
   }
 
   ngOnInit() {
-    console.log('current advertiser id = ', this.id);
-    this.advertiserEditForm = this.formBuilder.group({
+    console.log('current campaign id = ', this.id);
+    this.campaignEditForm = this.formBuilder.group({
       // id: [window.history.state.id],
-      name: [null, Validators.required],
-      email: [null, Validators.required],
-      username: [null, Validators.required],
+      link: [null, Validators.required],
+      content: [null, Validators.required],
+      destinationCountries: [null, Validators.required],
+      languages: [null, Validators.required],
     });
-    this.advertiserEditForm.patchValue((<Advertiser>window.history.state));
+    this.campaignEditForm.patchValue((<Campaign>window.history.state));
   }
 
   onFormSubmit(form: NgForm) {
@@ -55,11 +58,11 @@ export class EditComponent implements OnInit {
     this.goBack()
   };
 
-  updateAdvertiser(advertiser: any): void {
-    this.advertiserService.updateAdvertiser(advertiser)
-      .subscribe(advertiser => {
-        this.data = advertiser;
-        console.log(advertiser);
+  updateCampaign(campaign: any): void {
+    this.campaignService.updateCampaign(this.id, campaign)
+      .subscribe(campaign => {
+        this.data = campaign;
+        console.log(campaign);
         this.isLoadingResults = false;
       }, err => {
         console.log(err);
@@ -83,6 +86,5 @@ export class EditComponent implements OnInit {
     this.router.navigate(['advertisers'])
   }
 
+
 }
-
-

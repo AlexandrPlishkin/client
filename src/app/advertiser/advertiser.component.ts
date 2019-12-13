@@ -1,8 +1,7 @@
 import {Component, OnInit} from '@angular/core';
 import {Advertiser} from './advertiser';
 import {AdvertiserService} from './advertiser.service';
-import {ActivatedRoute, Router} from '@angular/router';
-import {log} from "util";
+import {Router} from '@angular/router';
 import {User} from "../user/user";
 
 @Component({
@@ -35,13 +34,17 @@ export class AdvertiserComponent implements OnInit {
       });
   }
 
-  edit(user: User) {
-    this.router.navigate(['advertisers-edit'], {state: user});
+  edit(advertiser: Advertiser) {
+    this.router.navigate(['advertisers-edit'], {state: advertiser});
   }
 
   deleteAdvertiser(advertiserId: number) {
     this.advertiserService.deleteAdvertiser(advertiserId).subscribe(resp => console.log(resp));
     window.location.reload();
+  }
+
+  viewCampaigns(advertiser: Advertiser) {
+    this.router.navigate(['campaigns'], {state: advertiser});
   }
 
   create() {

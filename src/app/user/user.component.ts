@@ -1,10 +1,8 @@
-import { Component, OnInit } from '@angular/core';
-import {FormGroup} from "@angular/forms";
-import {Advertiser} from "../advertiser/advertiser";
+import {Component, OnInit} from '@angular/core';
 import {User} from "./user";
-import {AdvertiserService} from "../advertiser/advertiser.service";
 import {Router} from "@angular/router";
 import {UserService} from "./user.service";
+import {Advertiser} from "../advertiser/advertiser";
 
 @Component({
   selector: 'app-user',
@@ -14,13 +12,14 @@ import {UserService} from "./user.service";
 export class UserComponent implements OnInit {
 
   data: User[] = [];
-  displayedColumns: string[] = ['userId', 'userNick', 'userName', 'userRole'];
+  displayedColumns: string[] = ['userId', 'userNick', 'userName', 'userRole', 'Functions'];
   isLoadingResults = true;
 
   constructor(private userService: UserService, private router: Router) {
   }
 
   ngOnInit() {
+    this.getUsers()
   }
 
   getUsers(): void {
@@ -38,6 +37,10 @@ export class UserComponent implements OnInit {
   deleteUser(userId: number) {
     this.userService.deleteUser(userId).subscribe(resp => console.log(resp));
     window.location.reload();
+  }
+
+  edit(user: User) {
+    this.router.navigate(['profile'], {state: user});
   }
 
 }

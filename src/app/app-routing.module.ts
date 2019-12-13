@@ -7,6 +7,7 @@ import {RegistrationComponent} from './auth/registration/registration.component'
 import {AuthGuard} from './auth/auth.guard';
 import {EditComponent} from "./advertiser/edit/edit.component";
 import {UserComponent} from "./user/user.component";
+import {ProfileComponent} from "./user/profile/profile.component";
 
 const routes: Routes = [
   {
@@ -42,13 +43,13 @@ const routes: Routes = [
     canActivate: [AuthGuard],
     component: UserComponent,
     data: {title: 'List of Users'}
+  },
+  {
+    path: 'profile',
+    canActivate: [AuthGuard],
+    component: ProfileComponent,
+    data: {title: 'UserProfile'}
   }
-  // {
-  //   path: 'users-edit',
-  //   canActivate: [AuthGuard],
-  //   component: EditUserComponent,
-  //   data: {title: 'EditUser'}
-  // },
 ];
 
 @NgModule({

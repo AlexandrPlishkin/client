@@ -1,50 +1,42 @@
-import { Injectable } from '@angular/core';
+import {Injectable} from '@angular/core';
 import {Advertiser} from "../advertiser/advertiser";
 import {Observable, of} from "rxjs";
 import {catchError, tap} from "rxjs/operators";
 import {HttpClient} from "@angular/common/http";
 import {Campaign} from "./campaign";
 
-const apiUrl = 'http://localhost:8080/api/v1/advertisers{advertiserId}/campaigns';
+const apiUrl = 'http://localhost:8080/api/v1/advertisers';
 
 @Injectable({
   providedIn: 'root'
 })
 export class CampaignService {
 
-  constructor(private http: HttpClient) { }
+  constructor(private http: HttpClient) {
+  }
 
-
-  createCampaign(campaign: Campaign): Observable<Campaign[]> {
-    return this.http.post<Campaign[]>(apiUrl, campaign)
+  createCampaign(advertiserId: number, campaign: Campaign): Observable<Campaign[]> {
+    return this.http.post<Campaign[]>(apiUrl + '/' + advertiserId + '/' + 'campaigns', campaign)
       .pipe(
         tap(_ => this.log('New Campaign')),
         catchError(this.handleError('createCampaign', []))
       );
   }
 
-  // TODO check []
-  getAdvertiser(id: number): Observable<Advertiser[]> {
-    return this.http.get<Advertiser[]>(apiUrl + '/' + id)
+
+  getCampaigns(advertiserId: number): Observable<Campaign[]> {
+    return this.http.get<Campaign[]>(apiUrl + '/' + advertiserId + '/' + 'campaigns')
       .pipe(
-        tap(_ => this.log('Advertiser')),
-        catchError(this.handleError('getAdvertiser', []))
+        tap(_ => this.log('Campaigns')),
+        catchError(this.handleError('getCampaigns', []))
       );
   }
 
-  getAdvertisers(): Observable<Advertiser[]> {
-    return this.http.get<Advertiser[]>(apiUrl)
+  updateCampaign(advertiserId: number, campaign: Campaign): Observable<Campaign[]> {
+    return this.http.put<Campaign[]>(apiUrl + '/' + advertiserId + '/' + 'campaigns', campaign)
       .pipe(
-        tap(_ => this.log('Advertiser')),
-        catchError(this.handleError('getAdvertisers', []))
-      );
-  }
-
-  updateAdvertiser(advertiser: Advertiser): Observable<Advertiser[]> {
-    return this.http.put<Advertiser[]>(apiUrl, advertiser)
-      .pipe(
-        tap(_ => this.log(' Updated Advertiser')),
-        catchError(this.handleError('updateAdvertiser', []))
+        tap(_ => this.log(' Updated Campaign')),
+        catchError(this.handleError('updateCampaign', []))
       );
   }
 
@@ -69,4 +61,6 @@ export class CampaignService {
   private log(message: string) {
     console.log(message);
   }
+
+
 }

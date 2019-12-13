@@ -1,1 +1,56 @@
-<p>profile works!</p>
+<div class="example-container mat-elevation-z8">
+  <mat-card class="example-card">
+    <form [formGroup]="profileEditForm" (ngSubmit)="onFormSubmit(profileEditForm.value)">
+
+      <mat-form-field class="example-full-width">
+        <input matInput type="nick" placeholder="User Nick" formControlName="nick"
+               [errorStateMatcher]="matcher">
+        <mat-error>
+          <span
+            *ngIf="!profileEditForm.get('nick').valid && profileEditForm.get('nick').touched">
+            Please enter User Nick</span>
+        </mat-error>
+      </mat-form-field>
+
+      <mat-form-field class="example-full-width">
+        <input matInput type="username" placeholder="User Name" formControlName="username"
+               [errorStateMatcher]="matcher">
+        <mat-error>
+          <span
+            *ngIf="!profileEditForm.get('username').valid && profileEditForm.get('username').touched">
+            Please enter your username</span>
+        </mat-error>
+      </mat-form-field >
+
+      <mat-form-field class="example-full-width">
+        <input matInput type="password" placeholder="User password" formControlName="password"
+               [errorStateMatcher]="matcher">
+        <mat-error>
+          <span
+            *ngIf="!profileEditForm.get('password').valid && profileEditForm.get('password').touched">
+            Please enter your password</span>
+        </mat-error>
+      </mat-form-field>
+
+      <mat-form-field class="example-full-width">
+        <input matInput type="role" placeholder="User role" formControlName="role"
+               [errorStateMatcher]="matcher">
+        <mat-error>
+          <span
+            *ngIf="!profileEditForm.get('role').valid && profileEditForm.get('role').touched">
+            Please enter your role</span>
+        </mat-error>
+      </mat-form-field>
+
+
+      <div class="button-row">
+        <button type="submit" [disabled]="!profileEditForm.valid" mat-flat-button color="primary">Save</button>
+      </div>
+
+
+      <div class="button-row">
+        <button type="button" mat-flat-button color="primary" (click)="goBack()">Back</button>
+      </div>
+    </form>
+  </mat-card>
+</div>

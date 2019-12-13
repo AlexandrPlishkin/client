@@ -23,7 +23,7 @@ export class UserService {
       );
   }
 
-  getUser(username: number): Observable<User[]> {
+  getUser(username: string): Observable<User[]> {
     return this.http.get<User[]>(apiUrl + '/' + username)
       .pipe(
         tap(_ => this.log('User')),
