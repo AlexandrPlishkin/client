@@ -1,9 +1,8 @@
 import {Injectable} from '@angular/core';
-import {Advertiser} from "../advertiser/advertiser";
-import {Observable, of} from "rxjs";
-import {catchError, tap} from "rxjs/operators";
-import {HttpClient} from "@angular/common/http";
-import {Campaign} from "./campaign";
+import {Observable, of} from 'rxjs';
+import {catchError, tap} from 'rxjs/operators';
+import {HttpClient} from '@angular/common/http';
+import {Campaign} from './campaign';
 
 const apiUrl = 'http://localhost:8080/api/v1/advertisers';
 
@@ -40,11 +39,11 @@ export class CampaignService {
       );
   }
 
-  deleteAdvertiser(id: number): Observable<Advertiser[]> {
-    return this.http.delete<Advertiser[]>(apiUrl + '/' + id)
+  deleteCampaign(advertiserId: number, campaignId: number): Observable<Campaign[]> {
+    return this.http.delete<Campaign[]>(apiUrl + '/' + advertiserId + '/' + 'campaigns' + '/' + campaignId)
       .pipe(
         tap(_ => this.log('deleted')),
-        catchError(this.handleError('deleteAdvertiser', []))
+        catchError(this.handleError('deleteCampaign', []))
       );
   }
 

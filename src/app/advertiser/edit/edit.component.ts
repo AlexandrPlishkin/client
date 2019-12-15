@@ -1,9 +1,9 @@
-import {Component, OnInit} from '@angular/core';
-import {Advertiser} from "../advertiser";
-import {AdvertiserService} from "../advertiser.service";
-import {Router} from "@angular/router";
-import {FormBuilder, FormControl, FormGroup, FormGroupDirective, NgForm, Validators} from "@angular/forms";
-import {ErrorStateMatcher} from "@angular/material/core";
+import {Component, HostListener, OnInit} from '@angular/core';
+import {Advertiser} from '../advertiser';
+import {AdvertiserService} from '../advertiser.service';
+import {Router} from '@angular/router';
+import {FormBuilder, FormControl, FormGroup, FormGroupDirective, NgForm, Validators} from '@angular/forms';
+import {ErrorStateMatcher} from '@angular/material/core';
 
 /** Error when invalid control is dirty, touched, or submitted. */
 export class MyErrorStateMatcher implements ErrorStateMatcher {
@@ -35,12 +35,18 @@ export class EditComponent implements OnInit {
   ngOnInit() {
     console.log('current advertiser id = ', this.id);
     this.advertiserEditForm = this.formBuilder.group({
-      // id: [window.history.state.id],
+      id: [window.history.state.id],
       name: [null, Validators.required],
       email: [null, Validators.required],
       username: [null, Validators.required],
     });
-    this.advertiserEditForm.patchValue((<Advertiser>window.history.state));
+    this.advertiserEditForm.patchValue((window.history.state as Advertiser));
+  }
+
+  @HostListener('window:beforeunload', ['$event']) unloadHandler(event: Event) {
+    console.log('Processing beforeunload...');
+    this.id = window.history.state.id;
+    event.returnValue = false;
   }
 
   onFormSubmit(form: NgForm) {
@@ -52,8 +58,8 @@ export class EditComponent implements OnInit {
       console.log(form);
     }
 
-    this.goBack()
-  };
+    this.goBack();
+  }
 
   updateAdvertiser(advertiser: any): void {
     this.advertiserService.updateAdvertiser(advertiser)
@@ -80,7 +86,7 @@ export class EditComponent implements OnInit {
   }
 
   goBack() {
-    this.router.navigate(['advertisers'])
+    this.router.navigate(['advertisers']);
   }
 
 }

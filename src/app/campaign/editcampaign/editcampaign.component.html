@@ -1,1 +1,55 @@
-<p>editcampaign works!</p>
+<div class="example-container mat-elevation-z8">
+  <mat-card class="example-card">
+    <form [formGroup]="campaignEditForm" (ngSubmit)="onFormSubmit(campaignEditForm.value)">
+
+      <mat-form-field class="example-full-width">
+        <input matInput type="link" placeholder="Campaign Link" formControlName="link"
+               [errorStateMatcher]="matcher">
+        <mat-error>
+          <span
+            *ngIf="!campaignEditForm.get('link').valid && campaignEditForm.get('link').touched">
+            Please enter Campaign link</span>
+        </mat-error>
+      </mat-form-field>
+
+      <mat-form-field class="example-full-width">
+        <input matInput type="content" placeholder="Campaign Content" formControlName="content"
+               [errorStateMatcher]="matcher">
+        <mat-error>
+          <span
+            *ngIf="!campaignEditForm.get('content').valid && campaignEditForm.get('content').touched">
+            Please enter Campaign content</span>
+        </mat-error>
+      </mat-form-field>
+
+      <mat-form-field class="example-full-width">
+        <input matInput type="destinationCountries" placeholder="Destination Countries"
+               formControlName="destinationCountries"
+               [errorStateMatcher]="matcher">
+        <mat-error>
+          <span
+            *ngIf="!campaignEditForm.get('destinationCountries').valid && campaignEditForm.get('destinationCountries').touched">
+            Please enter Destination Countries</span>
+        </mat-error>
+      </mat-form-field>
+
+      <mat-form-field class="example-full-width">
+        <input matInput type="languages" placeholder="Campaign languages" formControlName="languages"
+               [errorStateMatcher]="matcher">
+        <mat-error>
+          <span
+            *ngIf="!campaignEditForm.get('languages').valid && campaignEditForm.get('languages').touched">
+            Please enter Campaign languages</span>
+        </mat-error>
+      </mat-form-field>
+
+      <div class="button-row">
+        <button type="submit" [disabled]="!campaignEditForm.valid" mat-flat-button color="primary">Save</button>
+      </div>
+
+      <div class="button-row">
+        <button type="button" mat-flat-button color="primary" (click)="goBack()">Back</button>
+      </div>
+    </form>
+  </mat-card>
+</div>

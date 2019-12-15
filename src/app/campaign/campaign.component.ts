@@ -1,17 +1,7 @@
-import {Component, OnInit} from '@angular/core';
-import {Campaign} from "./campaign";
-import {Router} from "@angular/router";
-import {CampaignService} from "./campaign.service";
-import {ErrorStateMatcher} from "@angular/material/core";
-import {FormControl, FormGroupDirective, NgForm} from "@angular/forms";
-
-/** Error when invalid control is dirty, touched, or submitted. */
-export class MyErrorStateMatcher implements ErrorStateMatcher {
-  isErrorState(control: FormControl | null, form: FormGroupDirective | NgForm | null): boolean {
-    const isSubmitted = form && form.submitted;
-    return !!(control && control.invalid && (control.dirty || control.touched || isSubmitted));
-  }
-}
+import {Component, HostListener, OnInit} from '@angular/core';
+import {Campaign} from './campaign';
+import {Router} from '@angular/router';
+import {CampaignService} from './campaign.service';
 
 @Component({
   selector: 'app-campaign',
@@ -29,9 +19,10 @@ export class CampaignComponent implements OnInit {
   }
 
   ngOnInit() {
-    console.log('current advertiser id = ', this.id);
-    this.getCampaigns(this.id);
-
+    if (!localStorage.getItem('advertiserId')) {
+      localStorage.setItem('advertiserId', this.id);
+    }
+    this.getCampaigns(Number(localStorage.getItem('advertiserId')));
   }
 
   getCampaigns(advertiserId: number): void {
@@ -44,6 +35,19 @@ export class CampaignComponent implements OnInit {
         console.log(err);
         this.isLoadingResults = false;
       });
+  }
+
+  edit(campaign: Campaign) {
+    this.router.navigate(['campaigns-edit'], {state: campaign});
+  }
+
+  deleteCampaign(campaignId: number) {
+    this.campaignService.deleteCampaign(this.id, campaignId).subscribe(resp => console.log(resp));
+    this.router.navigate(['advertisers']);
+  }
+
+  createCampaign() {
+    this.router.navigate(['campaigns-edit']);
   }
 
 }

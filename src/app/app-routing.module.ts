@@ -8,6 +8,7 @@ import {AuthGuard} from './auth/auth.guard';
 import {EditComponent} from "./advertiser/edit/edit.component";
 import {UserComponent} from "./user/user.component";
 import {ProfileComponent} from "./user/profile/profile.component";
+import {EditcampaignComponent} from './campaign/editcampaign/editcampaign.component';
 
 const routes: Routes = [
   {
@@ -49,6 +50,12 @@ const routes: Routes = [
     canActivate: [AuthGuard],
     component: ProfileComponent,
     data: {title: 'UserProfile'}
+  },
+  {
+    path: 'campaigns-edit',
+    canActivate: [AuthGuard],
+    component: EditcampaignComponent,
+    data: {title: 'EditCampaign'}
   }
 ];
 

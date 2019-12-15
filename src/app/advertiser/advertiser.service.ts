@@ -23,14 +23,6 @@ export class AdvertiserService {
       );
   }
 
-  getAdvertiser(id: number): Observable<Advertiser[]> {
-    return this.http.get<Advertiser[]>(apiUrl + '/' + id)
-      .pipe(
-        tap(_ => this.log('Advertiser')),
-        catchError(this.handleError('get Advertiser', []))
-      );
-  }
-
   getAdvertisers(): Observable<Advertiser[]> {
     return this.http.get<Advertiser[]>(apiUrl)
       .pipe(
@@ -58,7 +50,7 @@ export class AdvertiserService {
   private handleError<T>(operation = 'operation', result?: T) {
     return (error: any): Observable<T> => {
 
-      console.error(error); // log to console instead
+      console.error(error);
       this.log(`${operation} failed: ${error.message}`);
 
       return of(result as T);

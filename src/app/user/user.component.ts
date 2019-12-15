@@ -1,8 +1,7 @@
 import {Component, OnInit} from '@angular/core';
-import {User} from "./user";
-import {Router} from "@angular/router";
-import {UserService} from "./user.service";
-import {Advertiser} from "../advertiser/advertiser";
+import {User} from './user';
+import {Router} from '@angular/router';
+import {UserService} from './user.service';
 
 @Component({
   selector: 'app-user',
@@ -19,7 +18,7 @@ export class UserComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.getUsers()
+    this.getUsers();
   }
 
   getUsers(): void {
@@ -41,6 +40,10 @@ export class UserComponent implements OnInit {
 
   edit(user: User) {
     this.router.navigate(['profile'], {state: user});
+  }
+
+  isSelfDelete(username: string): boolean {
+    return username === localStorage.getItem('username');
   }
 
 }
