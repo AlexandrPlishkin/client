@@ -33,17 +33,18 @@ export class EditcampaignComponent implements OnInit {
   constructor(private formBuilder: FormBuilder, private campaignService: CampaignService, private router: Router) {
   }
 
-
   ngOnInit() {
     console.log('current campaign id = ', this.id);
+    console.log(window.history.state);
     this.campaignEditForm = this.formBuilder.group({
       id: [window.history.state.id],
       link: [null, Validators.required],
       content: [null, Validators.required],
-      destinationCountries: [null, Validators.required],
-      languages: [null, Validators.required],
+      destinationCountries: [window.history.state.destinationCountries],
+      languages: [window.history.state.languages],
+
     });
-    this.campaignEditForm.patchValue((window.history.state as Campaign)); // fixme check casting
+    this.campaignEditForm.patchValue((window.history.state as Campaign));
   }
 
   @HostListener('window:beforeunload', ['$event']) unloadHandler(event: Event) {
@@ -52,7 +53,15 @@ export class EditcampaignComponent implements OnInit {
   }
 
   onFormSubmit(form: NgForm) {
+
+    this.destinationCountries = form['destinationCountries'];
+    this.languages = form['languages'];
+    form['destinationCountries'] = this.destinationCountries.split(',');
+    form['languages'] = this.languages.split(',');
+
     if (window.history.state.id) {
+      console.log(form['destinationCountries']);
+      console.log(form['languages']);
       this.updateCampaign(form);
       console.log(form);
     } else {
@@ -64,7 +73,7 @@ export class EditcampaignComponent implements OnInit {
   }
 
   updateCampaign(campaign: any): void {
-    this.campaignService.updateCampaign(Number(localStorage.getItem('advertiserId')), campaign)
+    this.campaignService.updateCampaign((Number)(localStorage.getItem('advertiserId')), campaign)
       .subscribe(campaign => {
         this.data = campaign;
         console.log(campaign);

@@ -29,6 +29,7 @@ export class AppComponent {
   }
 
   viewAdvertisers() {
+    localStorage.removeItem('advertiserId');
     this.router.navigate(['advertisers']);
   }
 

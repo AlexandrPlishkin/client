@@ -1,4 +1,4 @@
-import {Component, HostListener, OnInit} from '@angular/core';
+import {Component, OnInit} from '@angular/core';
 import {Advertiser} from './advertiser';
 import {AdvertiserService} from './advertiser.service';
 import {Router} from '@angular/router';

@@ -38,7 +38,6 @@ export class LoginComponent implements OnInit {
   onFormSubmit(form: NgForm) {
     this.authService.login(form)
       .subscribe((response: Response) => {
-        // console.log(response.headers.get('Authorization'));
         console.log(response.body['role']);
         localStorage.setItem('role', response.body['role']);
         if (response.headers.get('Authorization')) {

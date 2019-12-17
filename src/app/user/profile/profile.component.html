@@ -12,15 +12,6 @@
         </mat-error>
       </mat-form-field>
 
-      <mat-form-field class="example-full-width">
-        <input matInput type="username" placeholder="User Name" formControlName="username"
-               [errorStateMatcher]="matcher">
-        <mat-error>
-          <span
-            *ngIf="!profileEditForm.get('username').valid && profileEditForm.get('username').touched">
-            Please enter your username</span>
-        </mat-error>
-      </mat-form-field >
 
       <mat-form-field class="example-full-width">
         <input matInput type="password" placeholder="User password" formControlName="password"

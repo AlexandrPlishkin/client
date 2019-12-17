@@ -35,8 +35,9 @@ export class ProfileComponent implements OnInit {
   ngOnInit() {
     console.log('current user id = ', window.history.state.id);
     this.profileEditForm = this.formBuilder.group({
+      id: [window.history.state.id],
       nick: [null, Validators.required],
-      username: [null, Validators.required],
+      username: [window.history.state.username],
       password: [null, Validators.required],
       role: [null, Validators.required],
     });
