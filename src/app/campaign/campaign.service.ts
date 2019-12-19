@@ -3,8 +3,13 @@ import {Observable, of} from 'rxjs';
 import {catchError, tap} from 'rxjs/operators';
 import {HttpClient} from '@angular/common/http';
 import {Campaign} from './campaign';
+import {PageableAdvertiser} from "../advertiser/pageableAdvertiser";
+import {PageableCampaign} from "./pageableCampaign";
 
 const apiUrl = 'http://localhost:8080/api/v1/advertisers';
+
+const apiUrlPage = 'http://localhost:8080/api/v1/advertisers/?page=';
+
 
 @Injectable({
   providedIn: 'root'
@@ -23,8 +28,8 @@ export class CampaignService {
   }
 
 
-  getCampaigns(advertiserId: number): Observable<Campaign[]> {
-    return this.http.get<Campaign[]>(apiUrl + '/' + advertiserId + '/' + 'campaigns')
+  getCampaigns(advertiserId: number, page: number): Observable<any> {
+    return this.http.get<PageableCampaign>(apiUrl + '/' + advertiserId + '/' + 'campaigns' +'/' + '?page=' + page + '&size=3')
       .pipe(
         tap(_ => this.log('Campaigns')),
         catchError(this.handleError('getCampaigns', []))

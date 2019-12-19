@@ -1,7 +1,9 @@
-import {Component, OnInit} from '@angular/core';
+import {Component, OnInit, ViewChild} from '@angular/core';
 import {User} from './user';
 import {Router} from '@angular/router';
 import {UserService} from './user.service';
+import {MatPaginator} from "@angular/material/paginator";
+import {PageableUser} from "./PageableUser";
 
 @Component({
   selector: 'app-user',
@@ -11,22 +13,32 @@ import {UserService} from './user.service';
 export class UserComponent implements OnInit {
 
   data: User[] = [];
+  pageUser: PageableUser;
   displayedColumns: string[] = ['userId', 'userNick', 'userName', 'userRole', 'Functions'];
   isLoadingResults = true;
+  selectedPage = 0;
+  @ViewChild(MatPaginator, {static: true}) paginator: MatPaginator;
 
   constructor(private userService: UserService, private router: Router) {
   }
 
   ngOnInit() {
-    this.getUsers();
+    this.getUsers(this.selectedPage);
+    console.log(this.selectedPage);
+    console.log(this.paginator);
   }
 
-  getUsers(): void {
-    this.userService.getUsers()
-      .subscribe(advertisers => {
-        this.data = advertisers;
+  getUsers(page: number): void {
+    this.userService.getUsers(page)
+      .subscribe(pageUser => {
+        this.data = pageUser.content;
         console.log(this.data);
+        this.pageUser = pageUser;
+        console.log(this.pageUser);
+        this.paginator.length = this.pageUser.totalElements;
+        this.selectedPage = page;
         this.isLoadingResults = false;
+        console.log(this.paginator);
       }, err => {
         console.log(err);
         this.isLoadingResults = false;
@@ -46,4 +58,15 @@ export class UserComponent implements OnInit {
     return username === localStorage.getItem('username');
   }
 
+  handlePage(event) {
+    console.log(event);
+    this.userService.getUsers(event.pageIndex).subscribe(pageUser => {
+      this.data = pageUser.content;
+      console.log(this.data);
+      this.pageUser = pageUser;
+      this.selectedPage = event.pageIndex;
+      this.isLoadingResults = false;
+    });
+
+  }
 }

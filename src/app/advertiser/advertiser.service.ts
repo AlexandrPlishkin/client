@@ -3,8 +3,11 @@ import {HttpClient} from '@angular/common/http';
 import {Observable, of} from 'rxjs';
 import {catchError, tap} from 'rxjs/operators';
 import {Advertiser} from './advertiser';
+import {PageableAdvertiser} from "./pageableAdvertiser";
 
 const apiUrl = 'http://localhost:8080/api/v1/advertisers';
+
+const apiUrlPage = 'http://localhost:8080/api/v1/advertisers/?page=';
 
 
 @Injectable({
@@ -23,13 +26,16 @@ export class AdvertiserService {
       );
   }
 
-  getAdvertisers(): Observable<Advertiser[]> {
-    return this.http.get<Advertiser[]>(apiUrl)
+  getAdvertisers(page: number): Observable<any> {
+    return this.http.get<PageableAdvertiser>(apiUrlPage + page + '&size=3')
       .pipe(
         tap(_ => this.log('getAdvertisers')),
-        catchError(this.handleError('get Advertisers', []))
+        catchError(this.handleError('get Advertisers', ))
       );
   }
+
+
+
 
   updateAdvertiser(advertiser: Advertiser): Observable<Advertiser[]> {
     return this.http.put<Advertiser[]>(apiUrl, advertiser)
@@ -50,7 +56,7 @@ export class AdvertiserService {
   private handleError<T>(operation = 'operation', result?: T) {
     return (error: any): Observable<T> => {
 
-      console.error(error);
+      console.error(error.toString());
       this.log(`${operation} failed: ${error.message}`);
 
       return of(result as T);

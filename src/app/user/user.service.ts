@@ -3,8 +3,11 @@ import {HttpClient} from "@angular/common/http";
 import {Observable, of} from "rxjs";
 import {catchError, tap} from "rxjs/operators";
 import {User} from "./user";
+import {PageableUser} from "./PageableUser";
 
 const apiUrl = 'http://localhost:8080/api/v1/users';
+
+const apiUrlPage = 'http://localhost:8080/api/v1/users/?page=';
 
 
 @Injectable({
@@ -31,13 +34,14 @@ export class UserService {
       );
   }
 
-  getUsers(): Observable<User[]> {
-    return this.http.get<User[]>(apiUrl)
+  getUsers(page: number): Observable<any> {
+    return this.http.get<PageableUser>(apiUrlPage + page + '&size=3')
       .pipe(
         tap(_ => this.log('get Users')),
         catchError(this.handleError('get Users', []))
       );
   }
+
 
   updateUser(user: User): Observable<User[]> {
     return this.http.put<User[]>(apiUrl, user)
