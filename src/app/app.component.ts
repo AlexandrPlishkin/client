@@ -1,7 +1,7 @@
 import {Component} from '@angular/core';
-import {ActivatedRouteSnapshot, Router} from "@angular/router";
-import {AuthService} from "./auth.service";
-import {UserService} from "./user/user.service";
+import {Router} from '@angular/router';
+import {AuthService} from './auth.service';
+import {UserService} from './user/user.service';
 
 @Component({
   selector: 'app-root',
@@ -12,6 +12,8 @@ export class AppComponent {
 
   constructor(private router: Router, private authService: AuthService, private userService: UserService) {
   }
+
+  title = 'client';
 
   logout() {
     localStorage.clear();
@@ -32,10 +34,4 @@ export class AppComponent {
     localStorage.removeItem('advertiserId');
     this.router.navigate(['advertisers']);
   }
-
-  // checkDatabase() {
-  //   this.router.navigateByUrl('http://localhost:8080/h2-console')
-  // }
-
-  title = 'client';
 }

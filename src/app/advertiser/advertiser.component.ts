@@ -2,8 +2,8 @@ import {Component, OnInit, ViewChild} from '@angular/core';
 import {Advertiser} from './advertiser';
 import {AdvertiserService} from './advertiser.service';
 import {Router} from '@angular/router';
-import {PageableAdvertiser} from "./pageableAdvertiser";
-import {MatPaginator} from "@angular/material/paginator";
+import {PageableAdvertiser} from './pageableAdvertiser';
+import {MatPaginator} from '@angular/material/paginator';
 
 @Component({
   selector: 'app-advertiser',

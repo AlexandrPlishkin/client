@@ -1,9 +1,9 @@
-import {Component, HostListener, OnInit, ViewChild} from '@angular/core';
+import {Component, OnInit, ViewChild} from '@angular/core';
 import {Campaign} from './campaign';
 import {Router} from '@angular/router';
 import {CampaignService} from './campaign.service';
-import {PageableCampaign} from "./pageableCampaign";
-import {MatPaginator} from "@angular/material/paginator";
+import {PageableCampaign} from './pageableCampaign';
+import {MatPaginator} from '@angular/material/paginator';
 
 @Component({
   selector: 'app-campaign',
@@ -27,7 +27,7 @@ export class CampaignComponent implements OnInit {
     if (!localStorage.getItem('advertiserId')) {
       localStorage.setItem('advertiserId', this.id);
     }
-    this.getCampaigns(Number(localStorage.getItem('advertiserId')),this.selectedPage);
+    this.getCampaigns(Number(localStorage.getItem('advertiserId')), this.selectedPage);
     console.log(this.selectedPage);
     console.log(this.paginator);
   }

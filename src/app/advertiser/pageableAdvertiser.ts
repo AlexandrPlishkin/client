@@ -1,4 +1,4 @@
-import {Advertiser} from "./advertiser";
+import {Advertiser} from './advertiser';
 
 export class PageableAdvertiser {
 

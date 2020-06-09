@@ -1,13 +1,13 @@
 import {NgModule} from '@angular/core';
-import {Routes, RouterModule} from '@angular/router';
+import {RouterModule, Routes} from '@angular/router';
 import {AdvertiserComponent} from './advertiser/advertiser.component';
 import {CampaignComponent} from './campaign/campaign.component';
 import {LoginComponent} from './auth/login/login.component';
 import {RegistrationComponent} from './auth/registration/registration.component';
 import {AuthGuard} from './auth/auth.guard';
-import {EditComponent} from "./advertiser/edit/edit.component";
-import {UserComponent} from "./user/user.component";
-import {ProfileComponent} from "./user/profile/profile.component";
+import {EditComponent} from './advertiser/edit/edit.component';
+import {UserComponent} from './user/user.component';
+import {ProfileComponent} from './user/profile/profile.component';
 import {EditcampaignComponent} from './campaign/editcampaign/editcampaign.component';
 
 const routes: Routes = [
