@@ -1,4 +1,4 @@
-import {Campaign} from "./campaign";
+import {Campaign} from './campaign';
 
 export class PageableCampaign {
 

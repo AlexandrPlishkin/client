@@ -13,7 +13,7 @@ import {MatPaginator} from '@angular/material/paginator';
 export class CampaignComponent implements OnInit {
 
   data: Campaign[] = [];
-  pageCampaign: PageableCampaign;
+  pageCampaign: PageableCampaign[];
   displayedColumns: string[] = ['campaignId', 'campaignLink', 'campaignContent', 'destinationCountries', 'languages', 'Functions'];
   isLoadingResults = true;
   selectedPage = 0;
@@ -29,7 +29,7 @@ export class CampaignComponent implements OnInit {
     }
     this.getCampaigns(Number(localStorage.getItem('advertiserId')), this.selectedPage);
     console.log(this.selectedPage);
-    console.log(this.paginator);
+    // console.log(this.paginator);
   }
 
   getCampaigns(advertiserId: number, page: number): void {
@@ -37,9 +37,9 @@ export class CampaignComponent implements OnInit {
       .subscribe(pageCampaign => {
         this.data = pageCampaign.content;
         console.log(this.data);
-        this.pageCampaign = pageCampaign;
+        // this.pageCampaign = pageCampaign;
         console.log(this.pageCampaign);
-        this.paginator.length = this.pageCampaign.totalElements;
+        this.paginator.length = pageCampaign.totalElements;
         this.selectedPage = page;
         this.isLoadingResults = false;
       }, err => {
@@ -53,7 +53,9 @@ export class CampaignComponent implements OnInit {
   }
 
   deleteCampaign(campaignId: number) {
-    this.campaignService.deleteCampaign(this.id, campaignId).subscribe(resp => console.log(resp));
+    this.campaignService.deleteCampaign(this.id, campaignId)
+      .subscribe(resp => console.log(resp));
+
     this.router.navigate(['advertisers']);
   }
 
@@ -63,13 +65,14 @@ export class CampaignComponent implements OnInit {
 
   handlePage(event) {
     console.log(event);
-    this.campaignService.getCampaigns(Number(localStorage.getItem('advertiserId')), event.pageIndex).subscribe(pageCampaign => {
-      this.data = pageCampaign.content;
-      console.log(this.data);
-      this.pageCampaign = pageCampaign;
-      this.selectedPage = event.pageIndex;
-      this.isLoadingResults = false;
-    });
+    this.campaignService.getCampaigns(Number(localStorage.getItem('advertiserId')), event.pageIndex)
+      .subscribe(pageCampaign => {
+        this.data = pageCampaign.content;
+        console.log(this.data);
+        this.pageCampaign = pageCampaign;
+        this.selectedPage = event.pageIndex;
+        this.isLoadingResults = false;
+      });
   }
 
 }

@@ -3,8 +3,7 @@ import {Observable, of} from 'rxjs';
 import {catchError, tap} from 'rxjs/operators';
 import {HttpClient} from '@angular/common/http';
 import {Campaign} from './campaign';
-import {PageableAdvertiser} from "../advertiser/pageableAdvertiser";
-import {PageableCampaign} from "./pageableCampaign";
+import {PageableCampaign} from './pageableCampaign';
 
 const apiUrl = 'http://localhost:8080/api/v1/advertisers';
 
@@ -29,7 +28,8 @@ export class CampaignService {
 
 
   getCampaigns(advertiserId: number, page: number): Observable<any> {
-    return this.http.get<PageableCampaign>(apiUrl + '/' + advertiserId + '/' + 'campaigns' +'/' + '?page=' + page + '&size=3')
+    return this.http.get<PageableCampaign>(
+      apiUrl + '/' + advertiserId + '/' + 'campaigns' + '/' + '?page=' + page + '&size=3')
       .pipe(
         tap(_ => this.log('Campaigns')),
         catchError(this.handleError('getCampaigns', []))
@@ -58,7 +58,7 @@ export class CampaignService {
       console.error(error); // log to console instead
       this.log(`${operation} failed: ${error.message}`);
 
-      return of(result as T);
+      return of(result);
     };
   }
 
