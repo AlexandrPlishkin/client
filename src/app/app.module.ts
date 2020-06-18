@@ -30,7 +30,7 @@ import {MatSidenavModule} from '@angular/material/sidenav';
 import {MatToolbarModule} from '@angular/material/toolbar';
 import { UserComponent } from './user/user.component';
 import { ProfileComponent } from './user/profile/profile.component';
-import { EditcampaignComponent } from './campaign/editcampaign/editcampaign.component';
+import { EditCampaignComponent } from './campaign/editcampaign/edit-campaign.component';
 import {MatListModule} from '@angular/material/list';
 
 @NgModule({
@@ -43,7 +43,7 @@ import {MatListModule} from '@angular/material/list';
     EditComponent,
     UserComponent,
     ProfileComponent,
-    EditcampaignComponent
+    EditCampaignComponent
   ],
     imports: [
         BrowserModule,

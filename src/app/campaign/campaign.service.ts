@@ -3,7 +3,7 @@ import {Observable, of} from 'rxjs';
 import {catchError, tap} from 'rxjs/operators';
 import {HttpClient} from '@angular/common/http';
 import {Campaign} from './campaign';
-import {PageableCampaign} from './pageableCampaign';
+import {PageableCampaign} from './pageable-campaign';
 
 const apiUrl = 'http://localhost:8080/api/v1/advertisers';
 

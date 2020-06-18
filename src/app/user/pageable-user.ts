@@ -1,8 +1,8 @@
-import {Campaign} from './campaign';
+import {User} from './user';
 
-export class PageableCampaign {
+export interface PageableUser {
 
-  content: Campaign[];
+  content: User[];
   totalPages: number;
   totalElements: number;
   last: boolean;

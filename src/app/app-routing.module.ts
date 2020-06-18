@@ -8,9 +8,14 @@ import {AuthGuard} from './auth/auth.guard';
 import {EditComponent} from './advertiser/edit/edit.component';
 import {UserComponent} from './user/user.component';
 import {ProfileComponent} from './user/profile/profile.component';
-import {EditcampaignComponent} from './campaign/editcampaign/editcampaign.component';
+import {EditCampaignComponent} from './campaign/editcampaign/edit-campaign.component';
 
 const routes: Routes = [
+  {
+    path: '',
+    component: LoginComponent,
+    data: {title: 'Login'}
+  },
   {
     path: 'advertisers',
     canActivate: [AuthGuard],
@@ -54,9 +59,10 @@ const routes: Routes = [
   {
     path: 'campaigns-edit',
     canActivate: [AuthGuard],
-    component: EditcampaignComponent,
+    component: EditCampaignComponent,
     data: {title: 'EditCampaign'}
   }
+
 ];
 
 @NgModule({

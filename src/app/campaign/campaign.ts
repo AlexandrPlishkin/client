@@ -1,4 +1,4 @@
-export class Campaign {
+export interface Campaign {
 
   id: number;
   link: string;

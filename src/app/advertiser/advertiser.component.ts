@@ -2,7 +2,7 @@ import {Component, OnInit, ViewChild} from '@angular/core';
 import {Advertiser} from './advertiser';
 import {AdvertiserService} from './advertiser.service';
 import {Router} from '@angular/router';
-import {PageableAdvertiser} from './pageableAdvertiser';
+import {PageableAdvertiser} from './pageable-advertiser';
 import {MatPaginator} from '@angular/material/paginator';
 
 @Component({
@@ -40,7 +40,7 @@ export class AdvertiserComponent implements OnInit {
         this.paginator.length = this.pageAdvertiser.totalElements;
         this.selectedPage = page;
         this.isLoadingResults = false;
-        console.log(this.paginator)
+        console.log(this.paginator);
       }, err => {
         console.log(err);
         this.isLoadingResults = false;
@@ -53,7 +53,8 @@ export class AdvertiserComponent implements OnInit {
   }
 
   deleteAdvertiser(advertiserId: number) {
-    this.advertiserService.deleteAdvertiser(advertiserId).subscribe(resp => console.log(resp));
+    this.advertiserService.deleteAdvertiser(advertiserId)
+      .subscribe(resp => console.log(resp));
     localStorage.removeItem('advertiserId');
     window.location.reload();
   }
@@ -67,18 +68,18 @@ export class AdvertiserComponent implements OnInit {
   }
 
   handlePage(event) {
-    // this.setQueryParams(event,null);
-    // this.advertiserService.getAdvertisers(this.params).subscribe( data => {
+    // this.setQueryParams(event, null);
+    // this.advertiserService.getAdvertisers(this.params).subscribe(data => {
     //   this.setData(data);
 
-    console.log(event);
-    this.advertiserService.getAdvertisers(event.pageIndex).subscribe(pageAdvertiser => {
-      this.data = pageAdvertiser.content;
-      console.log(this.data);
-      this.pageAdvertiser = pageAdvertiser;
-      this.selectedPage = event.pageIndex;
-      this.isLoadingResults = false;
-    });
+      console.log(event);
+      this.advertiserService.getAdvertisers(event.pageIndex).subscribe(pageAdvertiser => {
+        this.data = pageAdvertiser.content;
+        console.log(this.data);
+        this.pageAdvertiser = pageAdvertiser;
+        this.selectedPage = event.pageIndex;
+        this.isLoadingResults = false;
+      });
+    }
   }
-}
 

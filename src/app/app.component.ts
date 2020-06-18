@@ -10,7 +10,7 @@ import {UserService} from './user/user.service';
 })
 export class AppComponent {
 
-  constructor(private router: Router, private authService: AuthService, private userService: UserService) {
+  constructor(private router: Router, public authService: AuthService, private userService: UserService) {
   }
 
   title = 'client';

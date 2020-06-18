@@ -1,8 +1,8 @@
-import {User} from "./user";
+import {Advertiser} from './advertiser';
 
-export class PageableUser {
+export interface PageableAdvertiser {
 
-  content: User[];
+  content: Advertiser[];
   totalPages: number;
   totalElements: number;
   last: boolean;

@@ -1,11 +1,14 @@
 .container {
-  padding: 20px;
+  padding: 10px;
+  height: 100vh;
 }
 
-.example-container {
-  padding: 20px;
-  margin-bottom: 10px;
-}
+
+
+/*.example-container {*/
+/*  padding: 10px;*/
+/*  margin-bottom: 10px;height: 100px;*/
+/*}*/
 
 .button-row {
   margin: 10px 0;
@@ -22,7 +25,20 @@
   background: none;
   color: black;
   flex: revert;
+  /*place-content: center;*/
 }
+
+.mat-toolbar {
+  align-content: center;
+  color: black;
+  font-size: xx-large;
+  font-feature-settings: revert;
+  place-content: center;
+}
+
+/*.example-loading-shade {*/
+/*  color: gold;*/
+/*}*/
 
 
 

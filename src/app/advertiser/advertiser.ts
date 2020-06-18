@@ -1,4 +1,4 @@
-export class Advertiser {
+export interface Advertiser {
 
   id: number;
   name: string;

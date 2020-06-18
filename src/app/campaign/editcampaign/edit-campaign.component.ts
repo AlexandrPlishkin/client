@@ -15,10 +15,10 @@ export class MyErrorStateMatcher implements ErrorStateMatcher {
 
 @Component({
   selector: 'app-editcampaign',
-  templateUrl: './editcampaign.component.html',
-  styleUrls: ['./editcampaign.component.css']
+  templateUrl: './edit-campaign.component.html',
+  styleUrls: ['./edit-campaign.component.css']
 })
-export class EditcampaignComponent implements OnInit {
+export class EditCampaignComponent implements OnInit {
 
   campaignEditForm: FormGroup;
   data: Campaign[];

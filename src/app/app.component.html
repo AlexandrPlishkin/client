@@ -8,23 +8,24 @@
     </div>
   </div>
 
-  <div class="example-loading-shade"
-       *ngIf="authService.isAdmin()">
-    <div class="button-row">
-      <button type="button" mat-flat-button color="primary" (click)="viewAllUsers()">View all Users</button>
-    </div>
-  </div>
-
-  <div class="example-loading-shade"
-       *ngIf="authService.isLoggedIn">
-    <div class="button-row">
-      <button type="button" mat-flat-button color="primary" (click)="viewAdvertisers()">View advertisers</button>
-    </div>
-  </div>
-
-  <div class="mat-elevation-z8"></div>
 </mat-toolbar>
 
-<div class="container">
-  <router-outlet></router-outlet>
+<div class="example-loading-shade"
+     *ngIf="authService.isAdmin()">
+  <div class="button-row">
+    <button type="button" mat-flat-button color="primary" (click)="viewAllUsers()">View all Users</button>
+  </div>
 </div>
+
+<div class="example-loading-shade"
+     *ngIf="authService.isLoggedIn">
+  <div class="button-row">
+    <button type="button" mat-flat-button color="primary" (click)="viewAdvertisers()">View advertisers</button>
+  </div>
+</div>
+
+<div class="mat-elevation-z8"></div>
+
+<!--<div class="container">-->
+  <router-outlet></router-outlet>
+<!--</div>-->

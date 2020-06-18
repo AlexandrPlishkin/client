@@ -2,8 +2,8 @@ import {Component, OnInit, ViewChild} from '@angular/core';
 import {User} from './user';
 import {Router} from '@angular/router';
 import {UserService} from './user.service';
-import {MatPaginator} from "@angular/material/paginator";
-import {PageableUser} from "./PageableUser";
+import {MatPaginator} from '@angular/material/paginator';
+import {PageableUser} from './pageable-user';
 
 @Component({
   selector: 'app-user',
@@ -12,11 +12,12 @@ import {PageableUser} from "./PageableUser";
 })
 export class UserComponent implements OnInit {
 
-  data: User[] = [];
+  users: User[];
   pageUser: PageableUser;
   displayedColumns: string[] = ['userId', 'userNick', 'userName', 'userRole', 'Functions'];
   isLoadingResults = true;
   selectedPage = 0;
+
   @ViewChild(MatPaginator, {static: true}) paginator: MatPaginator;
 
   constructor(private userService: UserService, private router: Router) {
@@ -24,17 +25,13 @@ export class UserComponent implements OnInit {
 
   ngOnInit() {
     this.getUsers(this.selectedPage);
-    console.log(this.selectedPage);
-    console.log(this.paginator);
   }
 
   getUsers(page: number): void {
     this.userService.getUsers(page)
-      .subscribe(pageUser => {
-        this.data = pageUser.content;
-        console.log(this.data);
-        this.pageUser = pageUser;
-        console.log(this.pageUser);
+      .subscribe(data => {
+        this.pageUser = data;
+        // this.pageUser = pageUser;
         this.paginator.length = this.pageUser.totalElements;
         this.selectedPage = page;
         this.isLoadingResults = false;
@@ -61,8 +58,8 @@ export class UserComponent implements OnInit {
   handlePage(event) {
     console.log(event);
     this.userService.getUsers(event.pageIndex).subscribe(pageUser => {
-      this.data = pageUser.content;
-      console.log(this.data);
+      this.users = pageUser.content;
+      // console.log(this.users);
       this.pageUser = pageUser;
       this.selectedPage = event.pageIndex;
       this.isLoadingResults = false;

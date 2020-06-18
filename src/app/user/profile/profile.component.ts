@@ -53,7 +53,7 @@ export class ProfileComponent implements OnInit {
     this.updateUser(form);
     console.log(form);
     this.goBack();
-  };
+  }
 
   updateUser(user: any): void {
     this.userService.updateUser(user)
