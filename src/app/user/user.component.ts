@@ -30,12 +30,12 @@ export class UserComponent implements OnInit {
   getUsers(page: number): void {
     this.userService.getUsers(page)
       .subscribe(data => {
+        this.users = data.content;
         this.pageUser = data;
-        // this.pageUser = pageUser;
         this.paginator.length = this.pageUser.totalElements;
         this.selectedPage = page;
         this.isLoadingResults = false;
-        console.log(this.paginator);
+        console.log(this.pageUser);
       }, err => {
         console.log(err);
         this.isLoadingResults = false;

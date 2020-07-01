@@ -26,11 +26,11 @@ export class AdvertiserService {
       );
   }
 
-  getAdvertisers(page: number): Observable<any> {
-    return this.http.get<PageableAdvertiser>(apiUrlPage + page + '&size=3')
+  getAdvertisers(page: number, pageSize: number): Observable<any> {
+    return this.http.get<PageableAdvertiser[]>(apiUrlPage + page + '&size=' + pageSize)
       .pipe(
         tap(_ => this.log('getAdvertisers')),
-        catchError(this.handleError('get Advertisers', ))
+        catchError(this.handleError('get Advertisers',))
       );
   }
 

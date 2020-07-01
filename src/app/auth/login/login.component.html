@@ -6,7 +6,7 @@
   <mat-card class="example-card">
     <form [formGroup]="loginForm" (ngSubmit)="onFormSubmit(loginForm.value)">
       <mat-form-field class="example-full-width">
-        <input matInput type="username" placeholder="Username" formControlName="username"
+        <input title="Username" matInput type="username" placeholder="Username" formControlName="username"
                [errorStateMatcher]="matcher">
         <mat-error>
           <span
@@ -14,7 +14,7 @@
         </mat-error>
       </mat-form-field>
       <mat-form-field class="example-full-width">
-        <input matInput type="password" placeholder="Password" formControlName="password"
+        <input title="Password" matInput type="password" placeholder="Password" formControlName="password"
                [errorStateMatcher]="matcher">
         <mat-error>
           <span

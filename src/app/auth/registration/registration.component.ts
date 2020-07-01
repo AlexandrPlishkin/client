@@ -1,5 +1,5 @@
 import {Component, OnInit} from '@angular/core';
-import {FormControl, FormGroupDirective, FormBuilder, FormGroup, NgForm, Validators} from '@angular/forms';
+import {FormBuilder, FormControl, FormGroup, FormGroupDirective, NgForm, Validators} from '@angular/forms';
 import {AuthService} from '../../auth.service';
 import {Router} from '@angular/router';
 import {ErrorStateMatcher} from '@angular/material/core';
@@ -31,9 +31,15 @@ export class RegistrationComponent implements OnInit {
 
   ngOnInit() {
     this.registerForm = this.formBuilder.group({
-      nick: [null, Validators.required],
-      username: [null, Validators.required],
-      password: [null, Validators.required],
+      nick: new FormControl(this.nick,
+        [Validators.required, Validators.minLength(3), Validators.maxLength(12)]),
+
+      username: new FormControl(this.username,
+        [Validators.required, Validators.minLength(2),
+          Validators.maxLength(20), Validators.pattern('[A-Za-zА-Яа-я]*')]),
+
+      password: new FormControl(this.password,
+        [Validators.required, Validators.minLength(6)])
     });
 
   }

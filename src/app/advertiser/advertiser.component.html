@@ -54,12 +54,14 @@
           </div>
         </td>
       </ng-container>
+
       <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
       <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
     </table>
   </div>
-  <mat-paginator [length]="100"
-                 [pageSize]="3" (page)="handlePage($event)">
+
+  <mat-paginator [length]="pageAdvertiser.totalElements"
+                 [pageSize]="pageSize" (page)="handlePage($event)" (input)="pageSize">
   </mat-paginator>
 
 </div>

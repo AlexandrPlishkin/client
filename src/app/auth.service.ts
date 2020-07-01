@@ -4,6 +4,7 @@ import {Observable, of} from 'rxjs';
 import {catchError, tap} from 'rxjs/operators';
 
 const apiUrl = 'http://localhost:8080/api/v1/users';
+const checkTokenUrl = 'http://localhost:8080/api/v1/advertisers';
 
 @Injectable({
   providedIn: 'root'
@@ -14,7 +15,7 @@ export class AuthService {
   redirectUrl: string;
 
   constructor(private http: HttpClient) {
-    if (localStorage.getItem('token')) {
+    if (localStorage.length !== 0) {
       this.isLoggedIn = true;
     }
   }

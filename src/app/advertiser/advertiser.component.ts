@@ -17,26 +17,26 @@ export class AdvertiserComponent implements OnInit {
   displayedColumns: string[] = ['advertiserId', 'advertiserName', 'advertiserEmail', 'advertiserOwner', 'Functions'];
   isLoadingResults = true;
   selectedPage = 0;
+  pageSize = 3;
+
   @ViewChild(MatPaginator, {static: true}) paginator: MatPaginator;
 
   constructor(private advertiserService: AdvertiserService, private router: Router) {
   }
 
   ngOnInit() {
-    this.getAdvertisers(this.selectedPage);
-    console.log(this.selectedPage);
-    console.log(this.paginator);
+    this.getAdvertisers(this.selectedPage, this.pageSize);
+    // console.log(this.selectedPage);
+    // console.log(this.paginator);
   }
 
-  getAdvertisers(page: number): void {
-    this.advertiserService.getAdvertisers(page)
-      .subscribe(pageAdvertiser => {
+  getAdvertisers(page: number, pageSize: number): void {
+    this.advertiserService.getAdvertisers(page, pageSize)
+      .subscribe((pageAdvertiser: PageableAdvertiser) => {
         this.data = pageAdvertiser.content;
         console.log(this.data);
 
-
         this.pageAdvertiser = pageAdvertiser;
-        console.log(this.pageAdvertiser);
         this.paginator.length = this.pageAdvertiser.totalElements;
         this.selectedPage = page;
         this.isLoadingResults = false;
@@ -72,14 +72,14 @@ export class AdvertiserComponent implements OnInit {
     // this.advertiserService.getAdvertisers(this.params).subscribe(data => {
     //   this.setData(data);
 
-      console.log(event);
-      this.advertiserService.getAdvertisers(event.pageIndex).subscribe(pageAdvertiser => {
-        this.data = pageAdvertiser.content;
-        console.log(this.data);
-        this.pageAdvertiser = pageAdvertiser;
-        this.selectedPage = event.pageIndex;
-        this.isLoadingResults = false;
-      });
-    }
+    console.log(event);
+    this.advertiserService.getAdvertisers(event.pageIndex, this.pageSize).subscribe(pageAdvertiser => {
+      this.data = pageAdvertiser.content;
+      console.log(this.data);
+      this.pageAdvertiser = pageAdvertiser;
+      this.selectedPage = event.pageIndex;
+      this.isLoadingResults = false;
+    });
   }
+}
 
